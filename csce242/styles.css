@@ -1,0 +1,35 @@
+/* Structure */
+Body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #9D8CA1;
+}
+
+div {
+    margin: auto;
+    padding: 8px;
+    width: 80%;
+    background-color: #81717A;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+/* Typography */
+
+h1 {
+    color: #A7ABDD;
+}
+
+h2 {
+    color: #A7ABDD;
+}
+
+p {
+    color:#B4D4EE
+}
+
+a {
+    text-decoration: none;
+    color: #B4D4EE;
+    font-weight: bold;
+
+}
