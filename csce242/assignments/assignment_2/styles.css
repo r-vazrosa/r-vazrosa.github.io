@@ -1,6 +1,7 @@
 /* Main Structure */
 Body {
     font-family: Arial, Helvetica, sans-serif;
+    background: url("images/background.jpg")
 }
 div {
     margin: auto;
@@ -15,22 +16,52 @@ table {
 #content {
     border: 2px black solid;
     margin-top: 0px;
+    background-color: #142601;
+
 }
 
 /* Specific Structure */
 #title {
     text-align: center;
+    color: #BFB304;
 }
 
 #subtitle {
     margin-top: 80px;
     text-decoration: underline;
+    color: #BFB304;
 }
 
+#guinea_pig_table {
+    margin: auto;
+}
 
 #guinea_pig_table td, #guinea_pig_table th {
-    border: 1px solid black;
+    border: 1px solid #365902;
     padding: 8px 10px;
+    color: #BFB304;
 }
 
+#guinea_pig_table th {
+    background-color: #365902;
+}
+
+#guinea_pig_img_container {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    width: 80%
+}
+
+.guinea_pig_img {
+    width: 35%;
+    border: 3px solid #365902;
+    border-radius: 10px;
+}
+
+
 /* Typography */
+
+p {
+    color: #A68B03;
+}
