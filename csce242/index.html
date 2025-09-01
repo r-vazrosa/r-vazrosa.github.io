@@ -5,21 +5,48 @@
         <title>Main Page</title>
     </head>
     <body>
-        <div id="'content">
-            <h1>CSCE-242</h1>
-            <p>Robert Vazquez Rosales</p>
+        <header>
+            <div id="footer-flex">
+                <p>Robert Vazquez Rosales</p>
+                <p><a href="https://github.com/r-vazrosa/r-vazrosa.github.io">Link to Repo</a></p>
+                <br>
+            </div>
+        </header>
+        <div id="title">
+            <h1>CSCE-242: Client-Server Computing</h1>
             <p>CSCE-242 is about learning to make web applications, with an overarching project we work on building</p>
-            <p><a href="https://github.com/r-vazrosa/r-vazrosa.github.io">Link to Repo</a></p>
             <br>
             <h2>Assignments</h2>
-            <ul>
-                <li>
-                    <a href="assignments/assignment_1/index.html">Assignment 1</a>
-                </li>
-                <li>
-                    <a href="assignments/assignment_2/index.html">Assignment 2</a>
-                </li>
-            </ul>
         </div>
+        <div id="content">
+            
+            <div class="assignment">
+                <p class="assignment_title">
+                    <a href="assignments/assignment_1/index.html">Assignment 1: Basic HTML</a>
+                </p>
+                <img src="assignment-images/assignment_1.png" class="assignment_img">
+                <p class="assignment_description">Tasked to work on a primative HTML website. Includes images, tables, lists, and links. </p>
+            </div>
+
+            <div class="assignment">
+                <p class="assignment_title">
+                    <a href="assignments/assignment_2/index.html">Assignment 2: Basic CSS</a>
+                </p>
+                <img src="assignment-images/assignment_2.png" class="assignment_img">
+                <p class="assignment_description">Tasked to work with CSS on a basic website. Including fonts, background images, intutive coloring, and image manipulation.</p>
+            </div>
+
+            <div class="assignment">
+                <p class="assignment_title">
+                    Assignment 3: Page Layout
+                </p>
+                <img src="assignment-images/assignment_3.png" class="assignment_img">
+                <p class="assignment_description">Tasked to work on main page of CSCE-242. Added flexbox container to assignments and used header, content, and footer organization.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>CSCE 242: Client-Server Computing</p>
+        </footer>
     </body>
 </html>
