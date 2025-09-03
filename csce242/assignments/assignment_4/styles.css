@@ -1,0 +1,104 @@
+/* Structure */
+
+Body {
+    background-color: #FFFFC7;
+    color: white;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Colors
+
+Background: #E0E2DB
+Nav, Links, Footer background: #FCAA67
+Title background: #3D348B
+Gallery background: #BEB7A4
+
+
+/* Header */
+
+#title {
+    text-align: center;
+    color: #3D348B;
+    font-size: 48px;
+}
+
+nav {
+    background-color: #BEB7A4;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 2px;
+}
+
+nav ul li {
+    font-size: 20px;
+    background-color: #FCAA67;
+    flex: 1;
+    text-align: center;
+    padding: 8px 0px;
+
+}
+
+/* Ideas Section */
+
+#idea-container {
+    color: #3D348B;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 0px;
+}
+.idea {
+    display: flex;
+    flex: 0 0 50%;
+}
+
+.idea-context {
+    margin-left: 20px;
+}
+
+.idea-context h2 {
+    font-size: 26px;
+}
+
+.idea-context p {
+    font-size: 18px;
+}
+
+/* Second Half of Page Basic Structure */
+#second-half {
+    display: flex;
+}
+
+/* Items Section */
+#link-section {
+    background-color: #FCAA67;
+}
+
+/* Titles Section */
+
+#title-section {
+    color: white;
+}
+
+.title-item {
+    background-color: #3D348B;
+}
+
+
+/* Galleries Section */
+
+.gallery-item {
+    background-color: #BEB7A4;
+}
+
+/* Footer */
+
+#footer {
+    background-color: #FCAA67;
+}
