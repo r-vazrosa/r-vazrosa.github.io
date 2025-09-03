@@ -1,6 +1,6 @@
 /* Structure */
 
-Body {
+body {
     background-color: #FFFFC7;
     color: white;
     margin: 0;
@@ -14,6 +14,7 @@ Nav, Links, Footer background: #FCAA67
 Title background: #3D348B
 Gallery background: #BEB7A4
 
+*/
 
 /* Header */
 
@@ -73,32 +74,65 @@ nav ul li {
 /* Second Half of Page Basic Structure */
 #second-half {
     display: flex;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 
 /* Items Section */
 #link-section {
-    background-color: #FCAA67;
+    background-color: #da8b4b;
+    flex: 0 0 15%;
 }
 
-/* Titles Section */
+#link-section h2, #link-section ul {
+    margin-left: 10px;
+}
 
-#title-section {
+/* Gallery/Title Section */
+
+
+
+#gallery-title-section {
+    display: flex;
     color: white;
+    flex-wrap: wrap;
+    flex: 1;
+    gap: 10px;
+    margin-left: 10px;
 }
 
 .title-item {
+    margin: 0;
     background-color: #3D348B;
+    flex: 0 0 calc((100% / 5) - 10px); 
+    height: 400px;
+    text-align: center;
 }
 
-
-/* Galleries Section */
 
 .gallery-item {
+    margin: 0;
     background-color: #BEB7A4;
+    flex: 0 0 calc((100% / 5) - 10px); 
+    height: 400px;
+    text-align: center;
 }
+
+.title-item p, .gallery-item p {
+    text-align: start;
+    margin: 15px;
+}
+
 
 /* Footer */
 
 #footer {
     background-color: #FCAA67;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 40px;
 }
