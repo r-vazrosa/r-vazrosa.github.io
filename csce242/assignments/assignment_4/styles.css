@@ -71,6 +71,11 @@ nav ul li {
     font-size: 18px;
 }
 
+.idea img {
+    width: 200px;
+    height: 400px;
+}
+
 /* Second Half of Page Basic Structure */
 #second-half {
     display: flex;
@@ -87,6 +92,16 @@ nav ul li {
 
 #link-section h2, #link-section ul {
     margin-left: 10px;
+    color: white;
+}
+
+#link-section ul {
+    list-style-type: none;
+}
+
+#link-section a {
+    text-decoration: none;
+    color: white;
 }
 
 /* Gallery/Title Section */
@@ -110,6 +125,11 @@ nav ul li {
     text-align: center;
 }
 
+.title-item img {
+    width: 200px;
+    height: 100px;
+}
+
 
 .gallery-item {
     margin: 0;
@@ -117,6 +137,11 @@ nav ul li {
     flex: 0 0 calc((100% / 5) - 10px); 
     height: 400px;
     text-align: center;
+}
+
+.gallery-item img {
+    width: 200px;
+    height: 50px;
 }
 
 .title-item p, .gallery-item p {
@@ -134,5 +159,52 @@ nav ul li {
     align-items: center;
     justify-content: center;
 
-    height: 40px;
+    height: 70px;
+}
+
+
+@media (max-width: 700px) {
+    nav ul {
+        flex-direction: column;
+    }
+    .idea {
+        flex-direction: column;
+        
+    }
+    .idea img {
+        margin: auto;
+    }
+
+    .idea:nth-child(1) {
+        margin-top: 20px;
+    }
+
+    #idea-container {
+        flex-direction: column;
+    }
+
+    #second-half {
+        flex-direction: column;
+    }
+
+    #link-section {
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .title-item, .gallery-item {
+        flex: 0 0 100%; 
+        font-size: 14px;
+        height: auto;
+    }
+
+    .title-item img, .gallery-item img {
+        width: 80%;
+        height: auto;
+    }
+
+    #gallery-title-section {
+        margin-right: 10px;
+        margin-left: 0px;
+    }
 }
