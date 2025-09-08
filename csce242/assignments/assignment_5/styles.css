@@ -538,6 +538,44 @@ body {
     color: var(--teritary-color);
 }
 
+
+
+.school-footer-section h2 {
+    border-bottom: 1px solid white;
+    font-size: 18px;
+}
+
+#sfs-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+    width: 95%;
+    margin: auto;
+    padding-bottom: 40px;
+}
+
+.sfs-links {
+    display: flex;
+    flex-direction: row;
+    font-size: 12px;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.sfs-links-col {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#school-footer-section {
+    display: flex;
+    flex-direction: row;;
+}
+
 @media screen and (max-width: 800px) {
 
     .hidden-pc {
@@ -725,5 +763,17 @@ body {
 
     #bottom-footer ul {
         flex-wrap: wrap;
+    }
+
+    #sfs-flex {
+        flex-direction: column;
+    }
+
+    #logo-item {
+        padding-top: 20px;
+    }
+
+    #logo-item img {
+        margin: auto;
     }
 }
