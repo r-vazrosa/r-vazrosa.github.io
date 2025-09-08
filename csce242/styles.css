@@ -17,8 +17,10 @@ Body {
     align-items: flex-start;
     display: flex;
     gap: 40px;
-    width: 80%;
+    width: 90%;
+    margin: auto;
     margin-top: 40px;
+    flex-wrap: wrap;
 }
 
 .section-title {
