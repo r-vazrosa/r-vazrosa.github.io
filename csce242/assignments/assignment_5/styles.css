@@ -49,6 +49,11 @@ body {
     font-weight: 600;
 }
 
+.seperator > *{
+    border: none;
+    border-left: 1px solid var(--secondary-color);
+}
+
 /* Header ----------------------------------------------------- */
 
 #main-header {
@@ -730,7 +735,9 @@ body {
         padding: 0;
     }
 
-    
+    #contact-footer-first p{
+        text-align: center;
+    }
 
 
     #contact-footer-second {
@@ -742,6 +749,7 @@ body {
         flex: 0 0 50%;
         color: var(--primary-color);
         font-weight: 600;
+        padding: 10px 0;
     }
 
     #contact-footer-third {
@@ -775,5 +783,23 @@ body {
 
     #logo-item img {
         margin: auto;
+    }
+
+    .seperator > *{
+        border: none;
+        border-top: 1px solid var(--secondary-color);
+    }
+
+    #contact-footer {
+        gap: 40px;
+    }
+
+    #contact-footer-second {
+        padding-top: 30px;
+        text-align: center;
+    }
+
+    #contact-footer-third {
+        text-align: center;
     }
 }
