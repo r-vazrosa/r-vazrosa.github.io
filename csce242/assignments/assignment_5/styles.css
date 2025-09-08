@@ -548,6 +548,7 @@ body {
 .school-footer-section h2 {
     border-bottom: 1px solid white;
     font-size: 18px;
+    padding-bottom: 4px;
 }
 
 #sfs-flex {
@@ -563,7 +564,8 @@ body {
 .sfs-links {
     display: flex;
     flex-direction: row;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 800;
     gap: 15px;
     justify-content: space-between;
 }
