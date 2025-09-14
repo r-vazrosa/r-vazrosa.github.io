@@ -1,0 +1,57 @@
+body {
+    background-color: rgb(97, 142, 201);
+    color: rgb(36, 54, 77);
+}
+
+/* general structure */
+
+#content {
+    display: flex;
+    gap: 10%;
+    justify-content: center;
+    margin: 0 10%;
+}
+
+#content > * {
+    flex: 1;
+}
+
+section {
+    background-color: rgb(247, 234, 122);
+    border: 2px solid rgb(85, 81, 41);
+}
+
+header > *, section > h2, footer, #image-change {
+    text-align: center;
+}
+
+p, #color-input {
+    margin-left: 10%;
+}
+
+footer {
+    margin-top: 30px;
+}
+
+
+/* specific structure */
+
+#sunny-times-message {
+    display: none;
+    white-space: pre;
+    
+}
+
+
+#weather-image {
+    width: 80%;
+    margin-bottom: 10%;
+}
+
+
+@media (max-width: 800px) {
+  #content {
+    flex-direction: column;
+  }
+}
+
