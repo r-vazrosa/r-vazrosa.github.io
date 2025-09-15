@@ -1,7 +1,15 @@
-body {
-    background-color: rgb(97, 142, 201);
-    color: rgb(36, 54, 77);
+:root {
+    --primary-color: rgb(97, 142, 201);
+    --secondary-color: rgb(247, 234, 122);
+    --teritary-color: rgb(36, 54, 77);
+    --border: rgb(85, 81, 41);
 }
+
+body {
+    background-color: var(--primary-color);
+    color: var(--teritary-color);
+}
+
 
 /* general structure */
 
@@ -17,8 +25,8 @@ body {
 }
 
 section {
-    background-color: rgb(247, 234, 122);
-    border: 2px solid rgb(85, 81, 41);
+    background-color: var(--secondary-color);
+    border: 2px solid --border;
 }
 
 header > *, section > h2, footer, #image-change {

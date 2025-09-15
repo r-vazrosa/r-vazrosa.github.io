@@ -1,0 +1,783 @@
+:root {
+    --white: #FFFFFF;
+    --black: #000000;
+
+    --primary: #0078c8;
+    --secondary: #0064b4;
+    --background: #003c8c;
+    --foreground: #0050a0;
+    --accent: #7fd9eb;
+    --alternate-background: #007828;
+    --alternate-foreground: #0cb143;
+    --alternate-accent: #a9eec0;
+
+
+
+    /*specific colors */
+
+    --application-screen-color: linear-gradient(to bottom,
+        #2D8AFC 0%,
+        #1862DF 5%,
+        #1A3B84 100%
+    );
+
+    --application-header-content-color: #EFEBD8;
+    --application-header-content-box-shadow: rgba(201, 198, 182, 0.8);
+
+    --taskbar-color: linear-gradient(to bottom,
+        #57A1F6 0%,
+        #245DDB 50%,
+        #1D4BB3 100%
+    );
+    --taskbar-start-color: linear-gradient(to bottom,
+        #7ce47c 0%,
+        #1DB61D 30%,
+        #29882A 100%
+    );
+
+    --taskbar-tab-color: linear-gradient(to bottom,
+        #53c4f8 0%,
+        #3980F4 30%,
+        #0976b4 100%
+    );
+
+    --taskbar-tab-hover-color: linear-gradient(to bottom,
+        rgb(132, 215, 253) 0%,
+        #5f99f7 30%,
+        #2983b8 100%
+    );
+
+    --taskbar-tab-selected-color: linear-gradient(to bottom,
+        #2986b1 0%,
+        #154aa0 30%,
+        #022f49 100%
+    );
+
+    --taskbar-clock-color: linear-gradient(to bottom,
+        #14A8EF 0%,
+        #0D9BEE 50%,
+        #0B84CC 100%
+    );
+    --taskbar-clock-border-color: #14357C;
+}
+
+body {
+    background-image: url('images/background_1.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: 2000px auto;
+
+    font-family: Tahoma, 'Segoe UI', Geneva, Verdana, sans-serif;
+
+    margin: 0;
+    overflow: hidden;
+}
+
+/* ---------------------- General Structure  -------------------------------*/
+
+#content {
+    position: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+/* --------------------- Specific Structure  -------------------------------*/
+
+
+/* Screen --------------------------------- */
+
+/* Apps */
+#app-col {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+    font-weight: 200;
+    margin-left: 15px;
+    margin-top: 60px;
+    gap: 10px;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 55px;
+    padding: 5px 8px 0px 8px;
+}
+
+.app img {
+    width: 80%;
+    margin: auto;
+    
+}
+
+.app p {
+    font-size: 12px;
+    color:  var(--white);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
+
+
+}
+
+
+/* Application */
+#screen {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+#application-screen {
+    position: absolute;
+    top: 20%;
+    transform: translateY(-10%);
+    right: 5%;
+    width: 800px;
+    height: 550px;
+    background: var(--application-screen-color);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+
+}
+
+#application-header {
+    height: 37px;
+    width: 100%;
+    margin: 0;
+}
+
+#application-header-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 0px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#application-header-title p {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    color: var(--white);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
+    font-weight: 200;
+}
+
+#application-header-title img {
+    width: 20px;
+    margin: 0 7px;
+}
+
+#application-header-title-icon-name {
+    display: flex;
+    flex-direction: row;
+}
+
+#close-button {
+    margin-left: auto;
+    cursor: pointer;
+    display: block;
+}
+
+#application-header-content {
+    background-color: var(--application-header-content-color);
+    width: 788px;
+    height: 100%;
+    margin: auto;
+    box-shadow: inset 0 0 0 2px var(--application-header-content-box-shadow);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+#header-account-section, #header-currency-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#header-currency-section {
+    margin-right: 8px;
+}
+
+#header-account-section img, #header-currency-section img {
+    width: 24px;
+    height: 24px;
+    margin: 0 8px 0 5px;
+}
+
+#header-account-section p, #header-currency-section p {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 2px;
+    font-size: 14px;
+}
+
+#application-content {
+    background-color: var(--white);
+    width: 788px;
+    height: 479px;
+    margin: auto;
+    margin-bottom: 6px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+
+}
+
+
+/* Taskbar --------------------------------- */
+
+#taskbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: var(--taskbar-color);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    padding: 0 0px;
+    font-family: 'Segoe UI', sans-serif;
+    justify-content: flex-start;
+    gap: 0px;
+    align-items: center;
+}
+/* Taskbar Stat */
+
+#taskbar-start {
+    background: var(--taskbar-start-color);
+    font-style: italic;
+    text-shadow: 1px 1px 1px black;
+    font-size: 26px;
+    display: flex;
+    height: 100%;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 30px 0 25px;
+    align-items: center;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+#taskbar-start img {
+    width: 30px;
+    height: 30px;
+    margin-right: 7px;
+}
+
+#taskbar-start p {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 4px;
+}
+
+/* Taskbar Tabs */
+
+#taskbar-tab-section {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    gap: 10px;
+    align-items: center;
+    margin-left: 10px;
+    flex: 1 1 auto;
+    overflow: hidden; 
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+#taskbar-tab-section::-webkit-scrollbar {
+  display: none;                     /* Chrome, Safari, Edge */
+}
+
+
+
+.taskbar-tab {
+    display: flex;
+    flex-direction: row;
+    background: var(--taskbar-tab-color);
+    height: 75%;
+    width: 170px;
+    align-items: center;
+    font-weight: 200;
+    font-size: 15px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    color: var(--white);
+    text-decoration: none;
+}
+
+.taskbar-tab:hover {
+    background: var(--taskbar-tab-hover-color);
+}
+
+.taskbar-tab-current {
+    display: flex;
+    flex-direction: row;
+    height: 75%;
+    width: 170px;
+    align-items: center;
+    font-weight: 200;
+    font-size: 15px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    background: var(--taskbar-tab-selected-color);
+    color: var(--white);
+    text-decoration: none;
+}
+
+.taskbar-tab img {
+    width: 21px;
+    margin-left: 10px;
+    margin-right: 12px;
+}
+
+.taskbar-tab p {
+    margin: 0;
+    padding: 0;
+}
+
+.taskbar-tab-current img {
+    width: 26px;
+    margin-left: 10px;
+    margin-right: 6px;
+}
+
+.taskbar-tab-ccurent p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Taskbar Clock */
+#taskbar-clock {
+    display: flex;
+    flex-direction: row;
+    background: var(--taskbar-clock-color);
+    height: 100%;
+    padding: 0 20px 0 5px;
+    align-items: center;
+    border-left: 2px solid var(--taskbar-clock-border-color);
+    margin-left: auto;
+}
+
+
+#taskbar-clock img {
+    height: 80%;
+}
+
+#taskbar-clock-time {
+    margin: 0;
+    padding: 0;
+    margin-left: 7px;
+}
+
+
+
+
+
+
+
+
+/* Seperate applications------------------------------------------------ */
+
+/* Fruti-click */
+
+#fruti-click {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 98%;
+    height: 98%;
+    margin: auto;
+}
+
+#click-component {
+    width: 100%;
+    background-color: var(--background);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+#click-component-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#click-component-gather {
+    width: 60%;
+    margin: auto;
+    border: 4px solid var(--black);
+    background-color: var(--foreground);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+#click-component-gather img {
+    width: 100%;
+    cursor: pointer;
+}
+
+#fruti-click-info {
+    width: 100%;
+    background-color: var(--alternate-background);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+#random-event-section {
+    display: flex;
+    flex-direction: column;
+    color: var(--alternate-accent);
+    text-align: center;
+    font-weight: 600;
+}
+
+#random-event-section img {
+    display: block;
+    width: 50%;
+    margin: auto;
+    border: 4px solid var(--black);
+    background-color: var(--alternate-foreground);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+  
+}
+
+#fruti-click-info-section-group {
+    display: flex;
+    flex-direction: column;
+}
+
+#fruti-click-info-section-group h1{
+    font-size: 24px;
+    text-align: center;
+    color: var(--alternate-accent);
+}
+
+
+.fruti-click-info-section {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.fruti-click-info-section h2{
+    font-size: 14px;
+    color: var(--alternate-accent);
+    margin: 0;
+    padding: 0;
+}
+
+.fruti-click-info-section p {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    color: var(--white);
+}
+
+
+/* Shop */
+
+#shop {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    max-height: 100%;
+}
+
+
+#shop-item {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--background);
+    padding: 5px 0 10px 0;
+}
+
+#shop-item-description {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#shop-item-description h2{
+    color: var(--accent);
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+#shop-item-description p{
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 200;
+    margin: 0;
+    padding: 0;
+    width: 80%;
+}
+
+#shop-item-description img {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px 0 7px;
+}
+
+#shop-item-alternate {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--alternate-background);
+    padding: 5px 0 10px 0;
+}
+
+#shop-item-description-alternate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#shop-item-description-alternate h2{
+    color: var(--alternate-accent);
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+#shop-item-description-alternate p{
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 200;
+    margin: 0;
+    padding: 0;
+    width: 80%;
+}
+
+#shop-item-description-alternate img {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px 0 7px;
+}
+
+#shop-item-purchase {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+/* Settings */
+
+#settings {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+#setting-picker {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    gap: 60px;
+    background-color: var(--alternate-background);
+    padding-right: 10px;
+}
+
+#setting {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: row;
+    color: var(--alternate-accent)
+}
+
+#setting img {
+    width: 80px;
+    height: 80px;
+    margin-right: 30px;
+}
+
+#config-section {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    background-color: var(--background);
+    overflow-y: scroll;
+    max-height: 100%;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    padding-left: 20px;
+}
+
+#config {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#config p{
+    color: var(--white);
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
+    margin-right: 20px;
+    
+}
+
+
+
+#config-subsection {
+    display: flex;
+    flex-direction: row;
+    color: var(--accent);
+    align-items: center;
+}
+
+#config-subsection button{
+    height: 20px;
+    width: 90px;
+    margin-left: 30px;
+}
+
+
+/* Info */
+
+#info {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background);
+    align-items: center;
+    overflow-y: scroll;
+    max-height: 100%;;
+}
+
+#info-section {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
+}
+
+#info-section h2{
+    display: flex;
+    flex-direction: column;
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+#info-section p{
+    display: flex;
+    flex-direction: column;
+    color: var(--white);
+    font-size: 14px;
+}
+
+/* Contact */
+
+#contact {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--alternate-background);
+    height: 100%;
+}
+
+#contact-info {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    margin: auto;
+}
+
+
+#contact-info h2 {
+    color: var(--alternate-accent);
+    text-decoration: underline;
+}
+
+#contact-info p{
+    color: var(--white);
+}
+
+#contact-section {
+    width: 95%;
+    margin: auto;
+}
+
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#contact-form section {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#contact-form section label{
+    color: var(--alternate-accent);
+}
+
+#contact-form button{
+    background-color: var(--alternate-accent);
+    border: none;
+    color: black;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6);
+    width: 30%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+#contact-form section input{
+    background-color: var(--alternate-foreground);
+    color: var(--black);
+    border: none;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6);
+    width: 70%;
+}
+
+
+@media (max-width: 1050px) {
+  #app-col {
+    display: none;
+  }
+}
+
+
+@media (max-width: 900px) {
+  #application-screen {
+    position: static;
+    width: 100vw;
+    height: auto;
+    max-width: none;
+    max-height: none;
+    transform: none;
+    top: auto;
+    right: auto;
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  #application-content, #application-header-content, #application-header {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  #application-header {
+    z-index: 10;
+  }
+
+  #application-content {
+    overflow: auto;
+    padding-top: 28px;
+  }
+  
+}
