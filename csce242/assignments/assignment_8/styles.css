@@ -1,0 +1,104 @@
+:root {
+    --primary-color: rgb(245, 159, 159);
+    --secondary-color: rgb(240, 191, 172);
+    --contrast-color: rgb(243, 92, 92);
+    --subheader-text-color: rgb(252, 93, 93);
+    --white: rgb(255, 255, 255);
+}
+
+
+
+/* General Structure */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--white);
+    background-color: var(--primary-color);
+}
+
+h2 {
+    color: var(--subheader-text-color);
+}
+
+h1, h2, p, input {
+    margin: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Specfic Sturcture ------------------------- */
+
+
+/* Header */
+
+header h1, header h2 {
+    text-align: center;
+}
+
+/* Exercise Section */
+
+#exercise-section {
+    background-color: var(--secondary-color);
+    border: 2px solid var(--contrast-color);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0;
+}
+
+#mobile-exercise-toggle {
+    display: none;
+}
+
+/* Exercise 1 */
+
+#exercise-1-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    padding: 10px 0;
+}
+
+img {
+    padding: 10px 0;
+}
+
+#exercise-1-section p {
+    padding: 10px 0;
+}
+
+
+/* Exercise 2 */
+
+#exercise-2-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#exercise-2-section p {
+    padding: 10px 0;
+}
+
+
+/* Footer */
+
+footer p {
+    text-align: center;
+}
+
+
+
+
+/* Small Screen */
+
+@media only screen and (max-width: 800px) {
+    #mobile-exercise-toggle {
+        display: block;
+    }
+
+}
