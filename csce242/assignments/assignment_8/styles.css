@@ -47,9 +47,30 @@ header h1, header h2 {
     padding: 40px 0;
 }
 
+#exercise-picker {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 30px 0;
+}
+
 #mobile-exercise-toggle {
     display: none;
 }
+
+#exercise-1-toggle, #exercise-2-toggle {
+    cursor: pointer;
+}
+
+#exercise-1-toggle {
+    padding-right: 25px;
+}
+
+#exercise-2-toggle {
+    border-left: 2px solid var(--white);
+    padding-left: 25px;
+}
+
 
 /* Exercise 1 */
 
@@ -63,8 +84,10 @@ input {
     padding: 10px 0;
 }
 
-img {
-    padding: 10px 0;
+#plant-state {
+    padding: 15px 0;
+    width: 100px;
+    height: 100px;
 }
 
 #exercise-1-section p {
