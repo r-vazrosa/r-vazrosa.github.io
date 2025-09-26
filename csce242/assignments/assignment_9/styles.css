@@ -1,0 +1,139 @@
+:root {
+    --primary-color: rgb(245, 159, 159);
+    --secondary-color: rgb(240, 191, 172);
+    --contrast-color: rgb(243, 92, 92);
+    --subheader-text-color: rgb(252, 93, 93);
+    --white: rgb(255, 255, 255);
+}
+
+
+
+/* General Structure */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--white);
+    background-color: var(--primary-color);
+}
+
+h2 {
+    color: var(--subheader-text-color);
+}
+
+h1, h2, p, input {
+    margin: 0;
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+/* Specfic Sturcture ------------------------- */
+
+
+/* Header */
+
+header h1, header h2, footer {
+    text-align: center;
+}
+
+#drawBtn {
+    display: block;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+/* css art section via chatgpt */
+
+#scene {
+  text-align: center;
+  padding-top: 20px;
+}
+
+#sky {
+  width: 100%;
+  height: 90vh;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.5s ease;
+}
+
+/* Cloud CSS */
+.cloud {
+  width: 100px;
+  height: 60px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  animation: floatCloud 6s infinite ease-in-out;
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.cloud::before {
+  width: 60px;
+  height: 60px;
+  left: -30px;
+  top: 0;
+}
+
+.cloud::after {
+  width: 60px;
+  height: 60px;
+  left: 30px;
+  top: 0;
+}
+
+@keyframes floatCloud {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+/* Tree CSS */
+.tree {
+  width: 20px;
+  height: 60px;
+  background: #8B4513;
+  position: absolute;
+  bottom: 0;
+}
+
+.tree::before {
+  content: '';
+  position: absolute;
+  bottom: 50px;
+  left: -20px;
+  width: 60px;
+  height: 60px;
+  background: green;
+  border-radius: 50%;
+}
+
+/* Sun and Moon */
+.sun, .moon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+.sun {
+  background: yellow;
+}
+
+.moon {
+  background: #000000;
+  box-shadow: -10px -10px 0 0 #fffebb inset;
+}
