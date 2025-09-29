@@ -1,6 +1,6 @@
 :root {
     --white: #FFFFFF;
-    --transparent-white: rgba(255, 255, 255, .0);
+    --transparent-white: rgba(255, 255, 255, .3);
     --black: #000000;
 
     --primary: rgba(0, 120, 200, 0.5);
@@ -16,6 +16,9 @@
 
 
     /*specific colors */
+
+    --app-hover-background-color: rgba(31, 103, 211, 0.250);
+    --app-hover-border-color: rgba(3, 87, 214, .6);
 
     --application-screen-color: linear-gradient(to bottom,
        rgba(45, 138, 252, 0.6) 0%, 
@@ -88,12 +91,23 @@ body {
 }
 
 
+p, h1, h2, img {
+    cursor: default;
+    user-select:none;
+}
 
+a {
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    line-height: 1.2;
+}
 
 /* --------------------- Specific Structure  -------------------------------*/
 
 
 /* Screen --------------------------------- */
+
 
 /* Apps */
 #app-col {
@@ -113,6 +127,11 @@ body {
     text-align: center;
     width: 55px;
     padding: 5px 8px 0px 8px;
+}
+
+.app:hover {
+    background-color: var(--app-hover-background-color);
+    box-shadow: inset 0 0 0 1px var(--app-hover-border-color);
 }
 
 .app img {
@@ -228,7 +247,7 @@ body {
 }
 
 #application-content {
-    background-color: var(--transparent-white);
+    background-color: var(--transparent);
     width: 788px;
     height: 479px;
     margin: auto;
@@ -747,6 +766,11 @@ body {
     border: none;
     box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6);
     width: 70%;
+}
+
+#contact-form-img input::file-selector-button {
+    background-color: var(--primary);
+    border: none;
 }
 
 
