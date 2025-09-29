@@ -116,3 +116,17 @@ header h1, header h2, footer {
 #imgsrc {
   text-align: center;
 }
+
+/* Small Screen */
+
+@media only screen and (max-width: 800px) {
+    #dog-flex {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dog-item {
+      max-width: 400px;
+    }
+
+}
