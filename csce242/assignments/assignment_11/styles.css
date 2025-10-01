@@ -1,0 +1,108 @@
+:root {
+    --primary-color: rgb(245, 159, 159);
+    --secondary-color: rgb(240, 191, 172);
+    --contrast-color: rgb(243, 92, 92);
+    --subheader-text-color: rgb(252, 93, 93);
+    --white: rgb(255, 255, 255);
+    --dog-hover-color: rgba(190, 21, 21, 0.7);
+    --drop-shadow-color: rgba(167, 8, 8, 0.9);
+}
+
+
+
+/* General Structure */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--white);
+    background-color: var(--primary-color);
+}
+
+h2 {
+    color: var(--subheader-text-color);
+}
+
+h1, h2, p, input {
+    margin: 0;
+}
+
+img {
+    width: 275px;
+}
+
+#external-resource {
+    color: var(--contrast-color);
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+/* Specfic Sturcture ------------------------- */
+
+
+/* Header */
+
+header h1, header h2, footer {
+    text-align: center;
+}
+
+#flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px;
+  margin: 40px 0;
+}
+
+.flex-item {
+    
+}
+
+.painting-title {
+    font-size: 17px;
+    padding: 20px 0;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+/* Small Screen */
+
+@media only screen and (max-width: 800px) {
+    #flex-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+}
+
+
+
+/* w3 modal */
+
+.w3-container{padding: 10px; color: var(--subheader-text-color)}
+.w3-modal{z-index:3;display:none;padding-top:100px;position:fixed;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgb(0,0,0);background-color:rgba(0,0,0,0.4)}
+.w3-modal-content{margin:auto;background-color:var(--secondary-color);position:relative;padding:0;outline:0;width:fit-content}
+.w3-display-topright{position:absolute;right:0;top:0}
+.w3-btn,.w3-button{border:none;display:inline-block;padding:8px 16px;vertical-align:middle;overflow:hidden;text-decoration:none;color:inherit;background-color:inherit;text-align:center;cursor:pointer;white-space:nowrap; color: var(--contrast-color);}
+.w3-button:hover{color:#000!important;background-color:#ccc!important}
+
+.modal-header {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.modal-subheader {
+    font-size: 14px;
+}
+
+.modal-img {
+    margin-top: 20px;
+}
