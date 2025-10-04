@@ -93,29 +93,33 @@ canvas#space-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-inde
 
 .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:20px;margin-top:20px;backdrop-filter:blur(6px);box-shadow:0 6px 30px rgba(0,0,0,0.6)}
 h2{margin-top:0}
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.project{padding:14px;border-radius:10px;background:rgba(255,255,255,0.02);overflow:hidden;transform-origin:center top}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;overflow:visible}
+.project{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(10,12,18,0.95), rgba(6,8,12,0.92));overflow:visible;transform-origin:center top;box-shadow:0 12px 40px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(6px)}
 
 /* Alternating subtle background tints to differentiate adjacent projects */
 .project.from-left{
   /* stronger cool-blue tint for better visibility */
-  background: linear-gradient(180deg, rgba(109,227,255,0.06), rgba(109,227,255,0.03));
+  background: linear-gradient(180deg, rgba(109,227,255,0.14), rgba(109,227,255,0.07));
 }
 .project.from-right{
   /* stronger purple tint for contrast */
-  background: linear-gradient(180deg, rgba(198,160,255,0.06), rgba(198,160,255,0.03));
+  background: linear-gradient(180deg, rgba(198,160,255,0.14), rgba(198,160,255,0.07));
 }
 
 /* Slightly stronger highlight when a project is in-view */
-.project.in-view.from-left{ background: linear-gradient(180deg, rgba(109,227,255,0.10), rgba(109,227,255,0.05)); }
-.project.in-view.from-right{ background: linear-gradient(180deg, rgba(198,160,255,0.10), rgba(198,160,255,0.05)); }
+.project.in-view.from-left{ background: linear-gradient(180deg, rgba(109,227,255,0.24), rgba(109,227,255,0.12)); }
+.project.in-view.from-right{ background: linear-gradient(180deg, rgba(198,160,255,0.24), rgba(198,160,255,0.12)); }
 
 @media (prefers-reduced-motion: reduce), (max-width:700px){
   /* On small screens / reduced motion keep a subtle neutral background for legibility */
   .project, .project.from-left, .project.from-right, .project.in-view.from-left, .project.in-view.from-right{ background:none; background-color:rgba(255,255,255,0.03) }
 }
 
-.project-row{display:flex;gap:18px;align-items:flex-start}
+.project-row{display:flex;gap:18px;align-items:flex-start;position:relative;overflow:visible;padding:12px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.45)}
+
+/* Inner panel uses the same alternating tint as the outer project to match 'alternate color' */
+.project.from-left .project-row{ background: linear-gradient(180deg, rgba(109,227,255,0.18), rgba(109,227,255,0.12)); }
+.project.from-right .project-row{ background: linear-gradient(180deg, rgba(198,160,255,0.18), rgba(198,160,255,0.12)); }
 .project.from-left .project-row{
   /* flipped alternation: from-left tilts right */
   transform: rotateX(15deg) rotateY(-8deg) rotate(1deg);
@@ -147,12 +151,12 @@ h2{margin-top:0}
    This creates a scaled/rotated 3D card with layered pseudo-elements to simulate depth. */
 .project{ perspective: 1400px; }
 .project.alt-3d .project-row{
-  transform: scale(0.75) rotateY(-30deg) rotateX(45deg) translateZ(4.5rem);
+  transform: scale(0.85) rotateY(-18deg) rotateX(20deg) translateZ(1.5rem);
   transform-origin: 50% 100%;
   transform-style: preserve-3d;
-  box-shadow: 1rem 1rem 2rem rgba(0,0,0,0.25);
-  transition: transform .6s ease;
-  border-radius: .5em;
+  box-shadow: 0.4rem 0.6rem 1rem rgba(0,0,0,0.25);
+  transition: transform .45s ease;
+  border-radius: .4em;
   position: relative;
   overflow: visible;
 }
@@ -170,11 +174,11 @@ h2{margin-top:0}
   transition: transform .6s ease;
 }
 .project.alt-3d .project-row::before{
-  transform: translateZ(4rem);
+  transform: translateZ(1rem);
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
 }
 .project.alt-3d .project-row::after{
-  transform: translateZ(-4rem);
+  transform: translateZ(-1rem);
   background: rgba(0,0,0,0.03);
 }
 .project.alt-3d .project-row:hover::before{ transform: translateZ(0); }
@@ -189,12 +193,12 @@ h2{margin-top:0}
 /* Variant: another 3D style the user provided */
 .project.alt-3d-variant{ perspective: 1400px; }
 .project.alt-3d-variant .project-row{
-  transform: scale(0.75) rotateY(-30deg) rotateX(45deg) translateZ(4.5rem);
+  transform: scale(0.9) rotateY(-14deg) rotateX(12deg) translateZ(0.9rem);
   transform-origin: 50% 100%;
   transform-style: preserve-3d;
-  box-shadow: 1rem 1rem 2rem rgba(0,0,0,0.25);
-  transition: transform .6s ease;
-  border-radius: .5em;
+  box-shadow: 0.35rem 0.5rem 0.9rem rgba(0,0,0,0.22);
+  transition: transform .45s ease;
+  border-radius: .4em;
   position: relative;
   overflow: visible;
 }
@@ -212,10 +216,10 @@ h2{margin-top:0}
   transition: transform .6s ease;
 }
 .project.alt-3d-variant .project-row::before{
-  transform: translateZ(4rem);
+  transform: translateZ(0.9rem);
 }
 .project.alt-3d-variant .project-row::after{
-  transform: translateZ(-4rem);
+  transform: translateZ(-0.9rem);
 }
 .project.alt-3d-variant .project-row:hover::before{ transform: translateZ(0); }
 .project.alt-3d-variant .project-row:hover::after{ transform: translateZ(-1px); }
@@ -230,8 +234,8 @@ h2{margin-top:0}
 .project-info{flex:1}
 
 /* one project per row for a more impactful layout */
-.projects-grid{display:block}
-.project{width:100%;display:block;margin-bottom:24px}
+.projects-grid{display:block;overflow:visible}
+.project{width:100%;display:block;margin-bottom:24px;overflow:visible}
 
 /* Slide-in animation: projects start slightly offset and transparent, then slide into place
    from left or right when they enter the viewport. We add .in-view and .from-left/.from-right
@@ -295,11 +299,25 @@ a, .btn { color: #001017 }
 .shooting-star{position:fixed;top:0;left:0;width:2px;height:80px;background:linear-gradient(45deg,#ffffff88,transparent);opacity:0;pointer-events:none}
 
 /* ---- Light sphere (scoped) ---- */
-:root { --sphere-speed: 3s; --sphere-delay-count: 40; --sphere-color: #00d2ff; }
+:root { --sphere-speed: 3s; --sphere-delay-count: 40; --sphere-color: #0066cc; }
 
-.orbit-scene{position:relative;width:360px;height:360px;perspective:900px;display:grid;place-items:center;z-index:5;overflow:visible}
-
-.sphere { display:flex; align-items:center; justify-content:center; width:30vmin; height:30vmin; margin:0 auto; background:transparent; position:relative; animation: sphere-spin 5s linear 0s infinite; transform-style: preserve-3d; -webkit-transform-style: preserve-3d; z-index:5 }
+.orbit-scene{
+  position: relative;
+  width: 360px;
+  height: 360px;
+  perspective: 900px;
+  display: grid;
+  place-items: center;
+  z-index: 5; /* sit above main content but below topbar (z-index:6) */
+  overflow: visible;
+  border-radius: 50%;
+  background: transparent;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  /* nudge the whole scene up a bit so it sits closer to the hero text */
+  transform: translateY(-4vmin);
+}
+.sphere { display:flex; align-items:center; justify-content:center; width:30vmin; height:30vmin; margin:0 auto; background:transparent; position:relative; animation: sphere-spin 5s linear 0s infinite; transform-style: preserve-3d; -webkit-transform-style: preserve-3d; z-index:6; pointer-events: none; box-shadow: 0 0 30px rgba(0,102,204,0.12); border-radius:50%; }
 
 .sphere div { --sz: 23%; --dv: calc(var(--sphere-speed) / var(--sphere-delay-count)); --dl: calc(var(--dv) * -1); width:var(--sz); height:var(--sz); position:absolute; left:50%; top:50%; box-sizing:border-box; border:0.25vmin solid var(--sphere-color); border-radius:100%; transform: translate(-50%,-50%) rotateX(90deg) translateZ(14vmin); box-shadow: 0 0 0.125vmin 0.125vmin var(--sphere-color), 0 0 0.125vmin 0.125vmin var(--sphere-color) inset; animation: sphere-shine var(--sphere-speed) linear var(--dl) infinite; background: transparent; }
 
@@ -331,31 +349,67 @@ a, .btn { color: #001017 }
 .sphere div:nth-child(20) { transform: translate(-50%,-50%) rotateX(90deg) translateZ(-13.0vmin); --sz:43%; --dl: calc(var(--dv) * -20); }
 .sphere div:nth-child(21) { transform: translate(-50%,-50%) rotateX(90deg) translateZ(-14.0vmin); --sz:23%; --dl: calc(var(--dv) * -21); }
 
-.sphere-link { position: absolute; bottom: 1vmin; padding: 1vmin; color: var(--sphere-color); font-family: Arial, Helvetica, serif; text-decoration: none; font-size: 0.75em }
-.sphere-link:before { content: "CHECK OUT MY "; color: #666; }
-.sphere-link:after { content: " COLLECTION"; color: #666; }
-.sphere-link:hover { color: #fff }
+.sphere-link { position: absolute; bottom: 1vmin; padding: 1vmin; color: var(--sphere-color); font-family: Arial, Helvetica, serif; text-decoration: none; font-size: 0.75em; pointer-events: none; opacity: 0; width: 0; height: 0; overflow: hidden }
+.sr-only{position:absolute;width:1px;height:1px;left:-9999px;top:auto;overflow:hidden}
+
+/* Ensure the document root and body span the full page and the body contains absolutely positioned elements */
+html, body { box-sizing: border-box; min-height: 100%; height: auto; }
+*, *::before, *::after { box-sizing: inherit; }
+body{ min-height:100vh; position:relative; }
+.sphere-link:before, .sphere-link:after { display: none }
 
 
 /* Custom animated cursor (hidden native cursor) */
 /* Only hide native cursor on fine pointers and when the user hasn't requested reduced motion.
    On touch/coarse pointers or when prefers-reduced-motion is set, show native cursor and hide the
    custom cursor for accessibility and usability. */
-html, body { cursor: none; }
-/* Also ensure interactive elements don't force a native pointer (which would appear above the custom cursor) */
-a, button, .btn, input, textarea, select, label { cursor: none; }
+/* Hide native cursor for fine pointers by default; form controls keep native cursor for accessibility (override below). */
+@media (pointer: fine) {
+  /* FORCE hide the native cursor for fine-pointer devices across the page.
+     This uses a very specific rule and !important so the native cursor doesn't appear.
+     Note: this will also hide cursors on form controls (inputs/textareas). */
+  html, body, * { cursor: none !important; }
+}
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {
   /* Use native cursor and hide the custom cursor on touch devices and when reduced-motion is preferred */
   html, body { cursor: auto; }
   #custom-cursor { display: none !important; opacity: 0 !important; pointer-events: none !important; }
 }
-#custom-cursor{position:fixed;left:0;top:0;width:48px;height:48px;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:opacity 180ms linear}
-.cursor-core{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#6de3ff;box-shadow:0 0 8px rgba(109,227,255,0.95)}
-.cursor-ring{position:absolute;left:50%;top:50%;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;border:2px solid rgba(154,230,255,0.22)}
-.cursor-ring.ring-1{width:56px;height:56px;animation:cursor-orbit-1 3.6s linear infinite;border-color:rgba(198,160,255,0.28)}
-.cursor-ring.ring-2{width:76px;height:76px;animation:cursor-orbit-2 5.2s linear infinite;border-color:rgba(109,227,255,0.22)}
+/* custom cursor container */
+#custom-cursor{position:fixed;left:0;top:0;width:48px;height:48px;pointer-events:none;z-index:10099;transform:translate(-50%,-50%);transition:opacity 180ms linear}
+
+/* core dot */
+.cursor-core{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#6de3ff;box-shadow:0 0 6px rgba(109,227,255,0.95)}
+
+/* orbit rings (decorative) - reduced size so they don't dominate */
+.cursor-ring{position:absolute;left:50%;top:50%;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;border:1.5px solid rgba(154,230,255,0.18)}
+.cursor-ring.ring-1{width:44px;height:44px;animation:cursor-orbit-1 3.6s linear infinite;border-color:rgba(198,160,255,0.22)}
+.cursor-ring.ring-2{width:58px;height:58px;animation:cursor-orbit-2 5.2s linear infinite;border-color:rgba(109,227,255,0.18)}
+
+/* small orbiting dots (orbbits) that circle the cursor core. These are visually small and animated with CSS transforms. */
+/* orbit variables for easy tuning */
+:root{--cursor-dot-1-radius:23px; --cursor-dot-2-radius:32px; --cursor-dot-size:6px}
+/* orbit wrapper rotates; the dot inside is positioned outward at the radius */
+.cursor-orbit{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;transform:translate(-50%,-50%);}
+.cursor-orbit.orbit-1{animation:orbit-rotate-1 1.9s linear infinite}
+.cursor-orbit.orbit-2{animation:orbit-rotate-2 2.9s linear infinite}
+.cursor-dot{position:absolute;left:50%;top:50%;width:var(--cursor-dot-size);height:var(--cursor-dot-size);margin:calc(var(--cursor-dot-size) / -2) 0 0 calc(var(--cursor-dot-size) / -2);border-radius:50%;background:#9ae6ff;box-shadow:0 0 6px rgba(154,230,255,0.95);pointer-events:none;z-index:10001;transform:translate(-50%,-50%) translateX(var(--r))}
+.cursor-dot.dot-1{--r: var(--cursor-dot-1-radius)}
+.cursor-dot.dot-2{--r: var(--cursor-dot-2-radius)}
 
 @keyframes cursor-orbit-1{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
 @keyframes cursor-orbit-2{0%{transform:translate(-50%,-50%) rotate(360deg)}100%{transform:translate(-50%,-50%) rotate(0deg)}}
+
+@keyframes orbit-rotate-1{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes orbit-rotate-2{0%{transform:translate(-50%,-50%) rotate(360deg)}100%{transform:translate(-50%,-50%) rotate(0deg)}}
+
+/* For backwards compatibility, keep dot keyframes but no longer used directly on dots */
+@keyframes dot-orbit-1{0%{transform:translate(-50%,-50%) rotate(0deg) translateX(var(--r))}50%{transform:translate(-50%,-50%) rotate(180deg) translateX(var(--r))}100%{transform:translate(-50%,-50%) rotate(360deg) translateX(var(--r))}}
+@keyframes dot-orbit-2{0%{transform:translate(-50%,-50%) rotate(0deg) translateX(var(--r))}50%{transform:translate(-50%,-50%) rotate(180deg) translateX(var(--r))}100%{transform:translate(-50%,-50%) rotate(360deg) translateX(var(--r))}}
+
+/* Respect reduced-motion and coarse pointers: hide or reduce animation intensity */
+@media (pointer: coarse), (prefers-reduced-motion: reduce){
+  #custom-cursor{display:none !important;opacity:0 !important}
+}
 
 /* (previous glitch animation removed per request) */

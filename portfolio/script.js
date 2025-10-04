@@ -186,24 +186,27 @@
   // custom cursor: only attach if element present and device supports fine pointer
   const cursor = document.getElementById('custom-cursor');
   if(cursor && window.matchMedia && window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    window.addEventListener('mousemove', (e)=>{
-      // hide if pointer is outside the viewport bounds (user moved off-page)
+    // We'll do a slight eased follow to reduce jitter and keep CSS animations smooth.
+    let targetX = null, targetY = null;
+    let curX = 0, curY = 0;
+    function setTarget(e){
       if(e.clientX < 0 || e.clientY < 0 || e.clientX > window.innerWidth || e.clientY > window.innerHeight){
         cursor.style.opacity = '0';
-        return;
+        targetX = null; targetY = null; return;
       }
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      cursor.style.opacity = '1';
-    });
-    // also listen to pointermove for finer devices
-    window.addEventListener('pointermove', (e)=>{
-      if(e.clientX < 0 || e.clientY < 0 || e.clientX > window.innerWidth || e.clientY > window.innerHeight){
-        cursor.style.opacity = '0';
-        return;
+      targetX = e.clientX; targetY = e.clientY; cursor.style.opacity = '1';
+    }
+    window.addEventListener('mousemove', setTarget);
+    window.addEventListener('pointermove', setTarget);
+
+    // gentle smoothing loop
+    (function followLoop(){
+      if(targetX !== null && targetY !== null){
+        curX += (targetX - curX) * 0.28; curY += (targetY - curY) * 0.28;
+        cursor.style.left = Math.round(curX) + 'px'; cursor.style.top = Math.round(curY) + 'px';
       }
-      cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; cursor.style.opacity = '1';
-    });
+      requestAnimationFrame(followLoop);
+    })();
     window.addEventListener('mouseleave', ()=> cursor.style.opacity = '0');
     window.addEventListener('mouseenter', ()=> cursor.style.opacity = '1');
     // hide cursor when pointer leaves the document (pointerleave) or mouseout to null
@@ -297,6 +300,51 @@
     }, {passive:false});
   })();
 
+  // Fallback enforcement: for stubborn cases where the native cursor reappears due to other styles
+  // or UA behavior, apply an inline style to hide the cursor on fine-pointer devices and persist it
+  // with a MutationObserver. This is intentionally conservative and only enabled when the device
+  // reports a fine pointer and the user hasn't requested reduced motion.
+  try{
+    if(window.matchMedia && window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      const applyHide = ()=>{
+        try{
+          // 1) inline hide for root/body
+          document.documentElement.style.cursor = 'none';
+          if(document.body) document.body.style.cursor = 'none';
+          // 2) insert a style element that forces cursor:none !important (broad fallback)
+          if(!document.getElementById('__force_hide_cursor_style')){
+            const s = document.createElement('style');
+            s.id = '__force_hide_cursor_style';
+            // include html/body, all elements, and pseudo-elements to cover cases where
+            // content is rendered outside <body> or pseudo-elements show a cursor.
+            s.textContent = `html, body, * { cursor: none !important; }
+*::before, *::after { cursor: none !important; }`;
+            (document.head || document.documentElement).appendChild(s);
+          }
+          // 3) apply inline cursor:none to all existing elements (brute-force)
+          try{ Array.from(document.querySelectorAll('*')).forEach(el=>{ if(el && el.style) el.style.cursor = 'none'; }); }catch(e){}
+        }catch(e){}
+      };
+      applyHide();
+      const mo = new MutationObserver((mut)=>{
+        // reapply to any new nodes or attribute changes
+        for(const m of mut){
+          if(m.type === 'childList'){
+            m.addedNodes && m.addedNodes.forEach(n => { try{ if(n.nodeType===1){ (n.style && (n.style.cursor='none')); Array.from(n.querySelectorAll? n.querySelectorAll('*') : []).forEach(el=> el.style && (el.style.cursor='none')); } }catch(e){} });
+          }
+          if(m.type === 'attributes' && m.target && m.target.style){ try{ m.target.style.cursor = 'none'; }catch(e){} }
+        }
+      });
+      mo.observe(document.documentElement, { attributes: true, childList: true, subtree: true });
+      // reapply on focus/visibility events
+      window.addEventListener('focus', applyHide);
+      document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) applyHide(); });
+  // Keep observer active for the page lifetime to cover elements injected later.
+  // Disconnect when the page unloads to avoid leaks.
+  window.addEventListener('beforeunload', ()=> mo.disconnect());
+    }
+  }catch(e){/* ignore */}
+
   // Observe project cards and trigger crash animation when they enter the viewport.
   // Use IntersectionObserver where available, but also run a scroll/viewport fallback using
   // getBoundingClientRect so transforms don't confuse the trigger.
@@ -367,6 +415,30 @@
       // initial check after a short delay to allow any native restore to finish
       setTimeout(()=>{ onScroll(); checkProjects(); }, 150);
     }catch(e){ /* ignore in older browsers */ }
+  })();
+
+  // Ensure the <body> element always covers the full document height.
+  // Some scripts/elements can end up outside the body; this helper sets body.minHeight
+  // to match documentElement.scrollHeight and keeps it updated on resize and DOM changes.
+  (function ensureBodyCovers(){
+    try{
+      const apply = ()=>{
+        const h = Math.max(document.documentElement.scrollHeight || 0, window.innerHeight || 0);
+        if(document.body) document.body.style.minHeight = h + 'px';
+      };
+      let timer = null;
+      const debouncedApply = ()=>{ clearTimeout(timer); timer = setTimeout(apply, 80); };
+      // initial
+      apply();
+      window.addEventListener('resize', debouncedApply, { passive: true });
+      // watch for DOM changes that affect height
+      const mo = new MutationObserver(debouncedApply);
+      mo.observe(document.documentElement, { childList:true, subtree:true, attributes:true });
+      // cleanup on unload
+      window.addEventListener('beforeunload', ()=> mo.disconnect());
+      // reapply after a short delay to account for late resources
+      setTimeout(apply, 250);
+    }catch(e){/* ignore */}
   })();
 
   // (Button glitch handler removed)
