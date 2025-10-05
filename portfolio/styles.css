@@ -2,6 +2,11 @@
   --accent: #6de3ff;
   --muted: rgba(255,255,255,0.7);
 }
+/* Always hide the native cursor; the custom cursor element will be used instead.
+   This applies across devices; touch devices typically don't show a cursor anyway.
+   If you later want a toggle for accessibility, we can add a setting. */
+/* Force native cursor off everywhere (including pseudo-elements). Intentionally global per user request. */
+html, body, * , *::before, *::after { cursor: none !important; }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:#e6f7ff}
 /* ensure the body always fills the viewport so the fixed background canvas aligns visually */
@@ -137,6 +142,11 @@ canvas#space-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-inde
 
 
 .card{background:linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.025));border-radius:12px;padding:20px;margin-top:20px;backdrop-filter:blur(7px);box-shadow:0 8px 34px rgba(0,0,0,0.62)}
+/* Section card text color: darker blue for improved contrast against the translucent card background.
+  Use targeted selectors so the color isn't accidentally overridden by later, component-specific rules. */
+.card h2{ color: hsl(210 60% 46%); }
+/* Keep subtitles readable by reverting to the previously chosen muted value */
+.card .small, .card .project-info .small{ color: hsl(210 58% 76%); }
 
 /* spacing between stacked card sections (e.g., About -> Projects) */
 .card + .card { margin-top: 80px }
@@ -146,6 +156,11 @@ canvas#space-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-inde
   .card + .card { margin-top: 28px }
 }
 h2{margin-top:0}
+.card h2{ color: hsl(210 60% 46%); }
+.card .small, .card .project-info .small{ color: hsl(210 58% 76%); }
+
+/* Make About section h3 headings a stronger blue for emphasis */
+#about h3{ color: hsl(210 72% 66%); }
 .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;overflow:visible}
 
 /* Technical skills spacing: more separation from About text and extra padding underneath */
@@ -180,7 +195,7 @@ h3 + .skills, .skills{margin-top:18px}
   .project-row{gap:12px}
 }
 
-.project-row{display:flex;gap:20px;align-items:center;position:relative;overflow:visible;padding:6px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.38);width:80%;max-width:1100px;min-width:300px}
+.project-row{display:flex;gap:20px;align-items:center;position:relative;overflow:visible;padding:16px;border-radius:8px;/* stronger, more opaque default shadow for higher perceived value */box-shadow:0 18px 46px rgba(0,0,0,0.62), 0 6px 20px rgba(0,0,0,0.48);width:80%;max-width:1100px;min-width:300px}
 
 /* Inner panel uses the same alternating tint as the outer project to match 'alternate color' */
 .project.from-left .project-row{ background: linear-gradient(180deg, rgba(109,227,255,0.16), rgba(109,227,255,0.10)); }
@@ -207,6 +222,57 @@ h3 + .skills, .skills{margin-top:18px}
 
 .project .project-row:hover{
   transform: rotate3d(0,0,0,0deg) rotate(0deg);
+  /* High-value visual: richer, brighter gradient and subtle glow */
+  background: linear-gradient(90deg, rgba(109,227,255,0.22), rgba(198,160,255,0.18));
+  box-shadow: 0 24px 60px rgba(46,120,255,0.12), 0 6px 30px rgba(109,227,255,0.06), 0 0 28px rgba(198,160,255,0.06) inset;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform .36s cubic-bezier(.2,.9,.3,1), box-shadow .36s ease, background .36s ease, border-color .36s ease;
+}
+
+/* Enhance text accents on hover for perceived value */
+.project .project-row:hover .project-info h3,
+.project .project-row:hover .project-info .small{
+  color: hsl(210 85% 88%); /* brighter, high-value blue */
+  text-shadow: 0 6px 18px rgba(45,120,255,0.12);
+}
+
+/* Slightly tint the thumbnail on hover to match the gradient */
+.project .project-row:hover .project-thumb{
+  /* avoid vertical shift; only scale slightly for depth */
+  box-shadow: 0 10px 30px rgba(46,120,255,0.12), 0 2px 10px rgba(0,0,0,0.6);
+  transform: scale(1.02);
+  transition: transform .36s cubic-bezier(.2,.9,.3,1), box-shadow .36s ease, filter .36s ease;
+  filter: saturate(1.08) contrast(1.03);
+}
+
+/* Per-row glow variations: 2nd project gets a purple glow; odd projects (1st,3rd,...) get a blueish glow */
+.projects-grid .project:nth-child(2) .project-row:hover{
+  background: linear-gradient(90deg, rgba(198,160,255,0.26), rgba(109,227,255,0.10));
+  box-shadow: 0 28px 72px rgba(198,160,255,0.14), 0 8px 36px rgba(110,40,160,0.08), 0 0 32px rgba(198,160,255,0.08) inset;
+}
+.projects-grid .project:nth-child(2) .project-row:hover .project-info h3,
+.projects-grid .project:nth-child(2) .project-row:hover .project-info .small{
+  color: hsl(280 72% 86%);
+  text-shadow: 0 8px 26px rgba(198,160,255,0.12);
+}
+.projects-grid .project:nth-child(2) .project-row:hover .project-thumb{
+  box-shadow: 0 14px 40px rgba(198,160,255,0.12), 0 4px 14px rgba(0,0,0,0.6);
+  filter: saturate(1.12) contrast(1.04);
+}
+
+.projects-grid .project:nth-child(odd) .project-row:hover{
+  /* blueish glow for 1st, 3rd, ... */
+  background: linear-gradient(90deg, rgba(109,227,255,0.26), rgba(198,160,255,0.08));
+  box-shadow: 0 28px 72px rgba(46,120,255,0.14), 0 8px 36px rgba(79,179,255,0.06), 0 0 32px rgba(109,227,255,0.06) inset;
+}
+.projects-grid .project:nth-child(odd) .project-row:hover .project-info h3,
+.projects-grid .project:nth-child(odd) .project-row:hover .project-info .small{
+  color: hsl(205 92% 88%);
+  text-shadow: 0 8px 26px rgba(46,120,255,0.12);
+}
+.projects-grid .project:nth-child(odd) .project-row:hover .project-thumb{
+  box-shadow: 0 14px 40px rgba(46,120,255,0.12), 0 4px 14px rgba(0,0,0,0.6);
+  filter: saturate(1.12) contrast(1.04);
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -312,19 +378,7 @@ h3 + .skills, .skills{margin-top:18px}
 }
 .project.from-right{ transform: translateX(36px) scale(0.995); }
 .project.in-view{ transform: translateX(0) scale(1); opacity:1; box-shadow:0 18px 40px rgba(0,0,0,0.55); }
-.project.in-view::after{
-  content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 12px;
-  height: 6px;
-  width: 60%;
-  border-radius: 50%;
-  background: linear-gradient(90deg, rgba(0,0,0,0.35), rgba(0,0,0,0.06));
-  opacity: 0.6;
-  pointer-events: none;
-}
+/* removed visual ::after under projects to simplify layout (was a soft shadow/underline) */
 .small{color:var(--muted);font-size:0.9rem}
 /* project subtitles: increase perceived value (lightness) and saturation for visibility */
 .project-info .small{color: hsl(210 58% 76%);}
@@ -489,27 +543,32 @@ body{ min-height:100vh; position:relative; }
 .sphere-link:before, .sphere-link:after { display: none }
 
 
-/* Custom animated cursor (hidden native cursor) */
-/* Only hide native cursor on fine pointers and when the user hasn't requested reduced motion.
-   On touch/coarse pointers or when prefers-reduced-motion is set, show native cursor and hide the
-   custom cursor for accessibility and usability. */
-/* Hide native cursor for fine pointers by default; form controls keep native cursor for accessibility (override below). */
-@media (pointer: fine) {
-  /* Hide native cursor for fine-pointer devices but keep the native cursor
-     for known interactive controls so keyboard and assistive users retain
-     expected affordances. The custom cursor (#custom-cursor) remains active.
-  */
-  html, body { cursor: none !important; }
-  /* Restore native cursor on interactive controls for accessibility */
-  a, button, input, textarea, select, label, summary, [role="button"], [role="link"] { cursor: auto !important; }
-}
+/* Custom animated cursor (hidden native cursor) - native cursor is disabled globally; the
+  custom cursor (#custom-cursor) will be used on fine-pointer devices. On coarse pointers
+  and when prefers-reduced-motion is set the custom cursor is hidden (see media query below). */
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {
-  /* Use native cursor and hide the custom cursor on touch devices and when reduced-motion is preferred */
-  html, body { cursor: auto; }
+  /* Hide the custom cursor on touch devices and when reduced-motion is preferred.
+     The native cursor remains hidden site-wide as requested. */
   #custom-cursor { display: none !important; opacity: 0 !important; pointer-events: none !important; }
 }
 /* custom cursor container */
 #custom-cursor{position:fixed;left:0;top:0;width:48px;height:48px;pointer-events:none;z-index:10099;transform:translate(-50%,-50%);transition:opacity 180ms linear}
+
+/* Hover state: shift cursor colors to purple when over interactive elements */
+#custom-cursor.cursor-hover .cursor-core{
+  background: #c6a0ff; /* light purple */
+  box-shadow:0 0 10px rgba(198,160,255,0.98);
+}
+#custom-cursor.cursor-hover .cursor-ring{
+  border-color: rgba(198,160,255,0.28);
+}
+#custom-cursor.cursor-hover .cursor-dot{ background: #d9b3ff; box-shadow:0 0 8px rgba(198,160,255,0.9); }
+
+/* smooth color transitions for cursor parts */
+.cursor-core, .cursor-ring, .cursor-dot{ transition: background-color 180ms linear, box-shadow 200ms linear, border-color 200ms linear; }
+
+/* Prevent selecting text inside button-like elements to avoid accidental selection */
+.btn, button { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 
 /* core dot */
 .cursor-core{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#6de3ff;box-shadow:0 0 6px rgba(109,227,255,0.95)}

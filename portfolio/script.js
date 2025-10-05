@@ -217,6 +217,27 @@
     // hide cursor when window loses focus, show when focused
     window.addEventListener('blur', ()=> cursor.style.opacity = '0');
     window.addEventListener('focus', ()=> cursor.style.opacity = '1');
+
+    // Toggle purple hover state when over interactive elements (delegated)
+    const hoverSelector = 'a, .btn, button, [role="button"], [role="link"], .icon-btn';
+    let hoverTarget = null;
+    function setHoverState(on){
+      if(!cursor) return;
+      if(on) cursor.classList.add('cursor-hover'); else cursor.classList.remove('cursor-hover');
+    }
+    // pointerenter/pointerleave don't bubble reliably across all browsers for delegation,
+    // so use pointerover/pointerout and check relatedTarget to avoid flicker.
+    document.addEventListener('pointerover', (e)=>{
+      const t = e.target.closest ? e.target.closest(hoverSelector) : null;
+      if(t && t !== hoverTarget){ hoverTarget = t; setHoverState(true); }
+    });
+    document.addEventListener('pointerout', (e)=>{
+      const to = e.relatedTarget;
+      if(hoverTarget && (!to || !to.closest || !to.closest(hoverSelector))){ hoverTarget = null; setHoverState(false); }
+    });
+    // also support keyboard focus (for users tabbing)
+    document.addEventListener('focusin', (e)=>{ if(e.target && (e.target.matches && e.target.matches(hoverSelector))) setHoverState(true); });
+    document.addEventListener('focusout', (e)=>{ if(e.target && (e.target.matches && e.target.matches(hoverSelector))) setHoverState(false); });
   }
 
   // helper to reset shooting stars
@@ -313,10 +334,7 @@
           if(!document.getElementById('__force_hide_cursor_style')){
             const s = document.createElement('style');
             s.id = '__force_hide_cursor_style';
-            s.textContent = `html, body { cursor: none !important; }
-a, button, input, textarea, select, label, summary, [role="button"], [role="link"] { cursor: auto !important; }
-/* ensure pseudo-elements don't show a native cursor */
-*::before, *::after { cursor: none !important; }`;
+            s.textContent = `/* Force native cursor off globally (matches styles.css) */\nhtml, body, *, *::before, *::after { cursor: none !important; }\n/* Hide custom cursor on coarse pointers or reduced-motion devices via CSS media queries (handled in styles.css) */`;
             (document.head || document.documentElement).appendChild(s);
           }
           // Avoid applying cursor styles inline to every element or new elements.
@@ -326,12 +344,16 @@ a, button, input, textarea, select, label, summary, [role="button"], [role="link
       };
       applyHide();
       const mo = new MutationObserver((mut)=>{
-        // reapply to any new nodes or attribute changes
+        // Keep the injected stylesheet in place; do not aggressively apply inline
+        // cursor styles to new nodes (this caused conflicts). The stylesheet covers
+        // the document root and pseudo-elements which is sufficient.
         for(const m of mut){
           if(m.type === 'childList'){
-            m.addedNodes && m.addedNodes.forEach(n => { try{ if(n.nodeType===1){ (n.style && (n.style.cursor='none')); Array.from(n.querySelectorAll? n.querySelectorAll('*') : []).forEach(el=> el.style && (el.style.cursor='none')); } }catch(e){} });
+            // if new style elements are added that might override our rule, re-ensure
+            // the injected style exists rather than setting inline styles on every node.
+            m.addedNodes && m.addedNodes.forEach(n => { try{ if(n.nodeType===1 && (n.tagName === 'STYLE' || n.tagName === 'LINK')) applyHide(); }catch(e){} });
           }
-          if(m.type === 'attributes' && m.target && m.target.style){ try{ m.target.style.cursor = 'none'; }catch(e){} }
+          if(m.type === 'attributes' && m.target && (m.target.tagName === 'STYLE' || m.target.tagName === 'LINK')){ try{ applyHide(); }catch(e){} }
         }
       });
       mo.observe(document.documentElement, { attributes: true, childList: true, subtree: true });
