@@ -308,21 +308,20 @@
     if(window.matchMedia && window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
       const applyHide = ()=>{
         try{
-          // 1) inline hide for root/body
-          document.documentElement.style.cursor = 'none';
-          if(document.body) document.body.style.cursor = 'none';
-          // 2) insert a style element that forces cursor:none !important (broad fallback)
+          // 1) insert a scoped style element that hides the native cursor for the
+          // document root but keeps native cursors on interactive controls.
           if(!document.getElementById('__force_hide_cursor_style')){
             const s = document.createElement('style');
             s.id = '__force_hide_cursor_style';
-            // include html/body, all elements, and pseudo-elements to cover cases where
-            // content is rendered outside <body> or pseudo-elements show a cursor.
-            s.textContent = `html, body, * { cursor: none !important; }
+            s.textContent = `html, body { cursor: none !important; }
+a, button, input, textarea, select, label, summary, [role="button"], [role="link"] { cursor: auto !important; }
+/* ensure pseudo-elements don't show a native cursor */
 *::before, *::after { cursor: none !important; }`;
             (document.head || document.documentElement).appendChild(s);
           }
-          // 3) apply inline cursor:none to all existing elements (brute-force)
-          try{ Array.from(document.querySelectorAll('*')).forEach(el=>{ if(el && el.style) el.style.cursor = 'none'; }); }catch(e){}
+          // Avoid applying cursor styles inline to every element or new elements.
+          // The injected stylesheet above covers most cases and respects interactive
+          // controls so we don't need to brute-force set inline styles.
         }catch(e){}
       };
       applyHide();

@@ -58,9 +58,12 @@ canvas#space-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-inde
 .btn.resume{animation: none}
 
 /* Nav actions stagger in after Resume */
-.topbar .actions .btn{opacity:0;transform:translateY(-6px);animation: slide-fade 420ms ease both;animation-delay:420ms}
+.topbar .actions .btn{opacity:0;transform:translateY(-6px);animation: slide-fade 420ms ease both;animation-delay:380ms}
+.topbar .actions .btn:nth-child(1){animation-delay:420ms}
 .topbar .actions .btn:nth-child(2){animation-delay:520ms}
 .topbar .actions .btn:nth-child(3){animation-delay:640ms}
+.topbar .actions .btn:nth-child(4){animation-delay:760ms}
+.topbar .actions .btn:nth-child(5){animation-delay:880ms}
 
 @media (prefers-reduced-motion: reduce){
   .btn.resume, .topbar .actions .btn{animation:none!important;transition:none}
@@ -167,12 +170,17 @@ h3 + .skills, .skills{margin-top:18px}
 .project.in-view.from-left{ background: linear-gradient(180deg, rgba(12,64,140,0.34), rgba(12,64,140,0.22)); }
 .project.in-view.from-right{ background: linear-gradient(180deg, rgba(110,40,160,0.34), rgba(110,40,160,0.22)); }
 
-@media (prefers-reduced-motion: reduce), (max-width:700px){
-  /* On small screens / reduced motion keep a subtle neutral background for legibility */
+@media (prefers-reduced-motion: reduce){
+  /* When the user requests reduced motion, keep a subtle neutral background for legibility.
+     Do NOT force this neutral look for all small screens — we want mobile to match desktop colors. */
   .project, .project.from-left, .project.from-right, .project.in-view.from-left, .project.in-view.from-right{ background:none; background-color:rgba(255,255,255,0.03) }
 }
 
-.project-row{display:flex;gap:8px;align-items:center;position:relative;overflow:visible;padding:6px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.38);width:80%;max-width:1100px}
+@media (max-width:900px){
+  .project-row{gap:12px}
+}
+
+.project-row{display:flex;gap:20px;align-items:center;position:relative;overflow:visible;padding:6px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.38);width:80%;max-width:1100px;min-width:300px}
 
 /* Inner panel uses the same alternating tint as the outer project to match 'alternate color' */
 .project.from-left .project-row{ background: linear-gradient(180deg, rgba(109,227,255,0.16), rgba(109,227,255,0.10)); }
@@ -318,6 +326,8 @@ h3 + .skills, .skills{margin-top:18px}
   pointer-events: none;
 }
 .small{color:var(--muted);font-size:0.9rem}
+/* project subtitles: increase perceived value (lightness) and saturation for visibility */
+.project-info .small{color: hsl(210 58% 76%);}
 
 /* Technical skills badges */
 .skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
@@ -328,8 +338,8 @@ h3 + .skills, .skills{margin-top:18px}
 .accent-2{color:#c6a0ff}
 .accent-3{color:#9ae6b4}
 
-/* stronger vibrant text colors */
-h1, h2, h3, .brand { color: #9ae6ff }
+/* stronger vibrant text colors for primary headings (h3 is controlled per-component to allow better contrast) */
+h1, h2, .brand { color: #9ae6ff }
 
 /* ensure hero heading body is white so only the .name span is gradient-colored */
 .hero .spacey-heading { color: #ffffff }
@@ -351,31 +361,68 @@ a, .btn { color: #001017 }
 .project .title-accent-4 h3{background:linear-gradient(90deg,#ffd36b,#ff7ac6);-webkit-background-clip:text;background-clip:text;color:transparent}
 .project .title-accent-5 h3{background:linear-gradient(90deg,#9ae6ff,#c8a0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
 
+/* Override: use a darker solid title color that matches each accent variant */
+.project.title-accent-1 h3{background:none;-webkit-background-clip:unset;background-clip:unset;color:hsl(210 70% 72%)}
+.project.title-accent-2 h3{background:none;-webkit-background-clip:unset;background-clip:unset;color:hsl(320 45% 70%)}
+.project.title-accent-3 h3{background:none;-webkit-background-clip:unset;background-clip:unset;color:hsl(210 70% 72%)}
+.project.title-accent-4 h3{background:none;-webkit-background-clip:unset;background-clip:unset;color:hsl(40 45% 70%)}
+.project.title-accent-5 h3{background:none;-webkit-background-clip:unset;background-clip:unset;color:hsl(210 70% 72%)}
+
 /* compact project row tweaks: slightly smaller titles for denser rows */
 .project h3{font-size:1.05rem;margin:0 0 6px;line-height:1.15}
 
 .footer{margin-top:40px;padding:20px 0;color:var(--muted);z-index:4}
 .footer .footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:8px}
 .footer .links{display:flex;gap:12px;align-items:center}
+.footer .links .icon-btn{ display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; padding:6px; border-radius:8px; }
+.footer .links .icon-btn svg{ width:18px; height:18px; display:block }
 .footer .links .btn{padding:6px 10px;border-radius:8px}
-.footer .copyright{text-align:center}
+.footer .copyright{text-align:center;margin-top:12px}
 
 /* small screens */
 @media (max-width:700px){
-  .hero{flex-direction:column;align-items:flex-start}
-  .orbit-scene{width:180px;height:180px}
+  /* Stack hero vertically on narrow screens and center content (name + sphere)
+     per user's request so the visual balance matches mobile expectations. */
+  .hero{flex-direction:column;align-items:center}
+  .hero-inner{max-width:100%;text-align:center}
+  .orbit-scene{width:180px;height:180px;margin-top:18px;align-self:center}
   .hero h1{font-size:2.2rem}
   /* slightly reduce button sizes on narrow screens to save space */
   .btn{padding:10px 12px;font-size:0.95rem}
   .btn.resume{padding:10px 14px}
 }
 
+/* center the CTA buttons under the name on narrow screens */
+@media (max-width:700px){
+  .cta-row{display:flex;flex-direction:row;gap:12px;justify-content:center;width:100%;margin-top:12px}
+  .cta-row .btn{min-width:unset}
+}
+
 /* Responsive: on narrower screens allow project rows to be full-width and left-aligned */
 @media (max-width:900px){
   .project{justify-content:flex-start}
+  /* Allow project-row to wrap/stack on very narrow screens so min-width doesn't break layout */
+  .project-row{min-width:0;flex-wrap:wrap;justify-content:center}
   .card + .card { margin-top: 28px }
   /* slightly reduced skills gap on narrow screens */
   h3 + .skills, .skills{margin-top:18px}
+}
+
+/* When a project-row wraps (mobile), center the thumbnail and info blocks */
+@media (max-width:700px){
+  /* Center project container and make the row stack with centered content */
+  .project{justify-content:center}
+  .project-row{display:flex;flex-direction:column;align-items:center;text-align:center;margin:0 auto;width:90%}
+  .project-thumb{margin:0 auto 12px auto;}
+  .project-info{width:100%}
+}
+
+/* Mobile safety: disable gradient text-clip on small screens (background-clip can be fragile),
+   but preserve the desktop HSL color overrides so mobile shows the same colors as desktop. */
+@media (max-width:900px){
+  .project h3{ background: none !important; -webkit-background-clip: unset !important; background-clip: unset !important; }
+  /* Keep color values defined in the desktop overrides (.project.title-accent-X h3). */
+  /* No forced color overrides here — desktop HSL colors will be used on mobile as well. */
 }
 
 /* shooting star styles (for small CSS sparkles if JS disabled) */
@@ -448,10 +495,13 @@ body{ min-height:100vh; position:relative; }
    custom cursor for accessibility and usability. */
 /* Hide native cursor for fine pointers by default; form controls keep native cursor for accessibility (override below). */
 @media (pointer: fine) {
-  /* FORCE hide the native cursor for fine-pointer devices across the page.
-     This uses a very specific rule and !important so the native cursor doesn't appear.
-     Note: this will also hide cursors on form controls (inputs/textareas). */
-  html, body, * { cursor: none !important; }
+  /* Hide native cursor for fine-pointer devices but keep the native cursor
+     for known interactive controls so keyboard and assistive users retain
+     expected affordances. The custom cursor (#custom-cursor) remains active.
+  */
+  html, body { cursor: none !important; }
+  /* Restore native cursor on interactive controls for accessibility */
+  a, button, input, textarea, select, label, summary, [role="button"], [role="link"] { cursor: auto !important; }
 }
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {
   /* Use native cursor and hide the custom cursor on touch devices and when reduced-motion is preferred */
