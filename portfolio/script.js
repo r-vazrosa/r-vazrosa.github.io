@@ -444,3 +444,5 @@
   // (Button glitch handler removed)
 })();
 
+// Resume button: no JS-driven persistent state (kept static by CSS)
+

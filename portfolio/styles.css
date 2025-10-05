@@ -11,8 +11,9 @@ body{min-height:100vh;overflow-x:hidden;position:relative;background-color:#000;
 
 canvas#space-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;will-change:transform;pointer-events:none}
 
-.topbar{position:relative;display:flex;justify-content:flex-end;align-items:center;z-index:6;pointer-events:none;padding:16px 20px}
-.topbar .actions{display:flex;gap:8px}
+.topbar{position:relative;display:flex;justify-content:space-between;align-items:center;z-index:6;padding:14px 20px}
+.topbar-left{display:flex;align-items:center;pointer-events:auto}
+.topbar .actions{display:flex;gap:10px}
 .topbar .actions{pointer-events:auto}
 .topbar .actions .btn{pointer-events:auto}
 
@@ -20,9 +21,50 @@ canvas#space-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-inde
 .topbar .btn svg{vertical-align:middle}
 .topbar .btn span.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-.btn{display:inline-block;padding:8px 12px;border-radius:8px;background:var(--accent);color:#001017;text-decoration:none;font-weight:600;transition:transform 220ms ease, background-color 220ms ease, box-shadow 220ms ease, color 200ms ease}
+.btn{display:inline-block;padding:12px 18px;border-radius:12px;background:var(--accent);color:#001017;text-decoration:none;font-weight:700;font-size:1rem;line-height:1;transition:transform 220ms ease, background-color 220ms ease, box-shadow 220ms ease, color 200ms ease}
 .btn.transparent{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(6px);transition:background-color 220ms ease, color 220ms ease, border-color 220ms ease}
+
+/* Resume button on the left: vibrant gradient to stand out */
+.btn.resume{background:linear-gradient(90deg,#7b3cff 0%, #c6a0ff 100%);color:#061228;border:none;box-shadow:0 20px 50px rgba(123,60,255,0.18);padding:12px 20px;font-size:1.03rem;pointer-events:auto;transition:background 360ms ease, box-shadow 360ms ease, filter 220ms ease}
+/* Static: no hover animation or persistent active state for Resume */
+/* No hover animation for Resume; appearance stays static on hover */
+
+@media (prefers-reduced-motion: reduce){
+  .btn.resume:hover{animation:none;transform:translateY(-2px)}
+}
 .btn:hover{transform:translateY(-2px)}
+
+/* subtle brighten on hover/focus for Resume (no lift) */
+.btn.resume:hover, .btn.resume:focus, .btn.resume:focus-visible{
+  filter: brightness(1.45);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .btn.resume:hover, .btn.resume:focus, .btn.resume:focus-visible{ filter: none }
+}
+
+/* entrance animations for topbar */
+@keyframes pop-in {
+  0% { transform: translateY(-6px) scale(0.96); opacity: 0 }
+  60% { transform: translateY(0) scale(1.03); opacity: 1 }
+  100% { transform: translateY(0) scale(1); opacity: 1 }
+}
+@keyframes slide-fade {
+  from { transform: translateY(-6px); opacity: 0 }
+  to { transform: translateY(0); opacity: 1 }
+}
+
+/* Resume: visible immediately (no entrance pop-in) */
+.btn.resume{animation: none}
+
+/* Nav actions stagger in after Resume */
+.topbar .actions .btn{opacity:0;transform:translateY(-6px);animation: slide-fade 420ms ease both;animation-delay:420ms}
+.topbar .actions .btn:nth-child(2){animation-delay:520ms}
+.topbar .actions .btn:nth-child(3){animation-delay:640ms}
+
+@media (prefers-reduced-motion: reduce){
+  .btn.resume, .topbar .actions .btn{animation:none!important;transition:none}
+}
 
 .container{position:relative;z-index:4;max-width:1100px;margin:60px auto;padding:20px}
 .hero{min-height:60vh;display:flex;align-items:center;justify-content:space-between;gap:24px}
@@ -48,7 +90,7 @@ canvas#space-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-inde
 .topbar{background:transparent}
 
 /* CTA buttons: radial purple->blue gradient for a spacey orb-like look */
-.cta-row .btn{background:linear-gradient(90deg,#2a2fd4 0%, #4fb3ff 70%);color:#001017;font-weight:700;border:none;padding:10px 14px;border-radius:12px;box-shadow:0 8px 26px rgba(44,79,255,0.12)}
+.cta-row .btn{background:linear-gradient(90deg,#2a2fd4 0%, #4fb3ff 70%);color:#001017;font-weight:800;border:none;padding:12px 18px;border-radius:14px;box-shadow:0 10px 32px rgba(44,79,255,0.14)}
 
 /* stronger CTA hover/focus for clarity */
 .cta-row .btn:hover,
@@ -91,35 +133,50 @@ canvas#space-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-inde
 .travel-orb.in-flight{transition:transform 720ms cubic-bezier(.2,.9,.3,1), left 720ms cubic-bezier(.2,.9,.3,1), top 720ms cubic-bezier(.2,.9,.3,1), opacity 280ms ease}
 
 
-.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:20px;margin-top:20px;backdrop-filter:blur(6px);box-shadow:0 6px 30px rgba(0,0,0,0.6)}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.025));border-radius:12px;padding:20px;margin-top:20px;backdrop-filter:blur(7px);box-shadow:0 8px 34px rgba(0,0,0,0.62)}
+
+/* spacing between stacked card sections (e.g., About -> Projects) */
+.card + .card { margin-top: 80px }
+
+@media (max-width:700px){
+  /* smaller gap on narrow screens */
+  .card + .card { margin-top: 28px }
+}
 h2{margin-top:0}
 .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;overflow:visible}
-.project{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(10,12,18,0.95), rgba(6,8,12,0.92));overflow:visible;transform-origin:center top;box-shadow:0 12px 40px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(6px)}
+
+/* Technical skills spacing: more separation from About text and extra padding underneath */
+/* More space between About subsection and Technical Skills */
+h3 + .skills, .skills{margin-top:18px}
+.skills{padding-bottom:20px}
+/* space between the about list and the Technical Skills heading */
+.meta-list{margin-bottom:40px}
+.project{padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(10,12,18,0.95), rgba(6,8,12,0.92));overflow:visible;transform-origin:center top;box-shadow:0 10px 30px rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(6px)}
 
 /* Alternating subtle background tints to differentiate adjacent projects */
 .project.from-left{
-  /* stronger cool-blue tint for better visibility */
-  background: linear-gradient(180deg, rgba(109,227,255,0.14), rgba(109,227,255,0.07));
+  /* darker blue outer for left projects */
+  background: linear-gradient(180deg, rgba(12,64,140,0.22), rgba(12,64,140,0.16));
 }
 .project.from-right{
-  /* stronger purple tint for contrast */
-  background: linear-gradient(180deg, rgba(198,160,255,0.14), rgba(198,160,255,0.07));
+  /* darker purple outer for right projects */
+  background: linear-gradient(180deg, rgba(110,40,160,0.22), rgba(110,40,160,0.16));
 }
 
 /* Slightly stronger highlight when a project is in-view */
-.project.in-view.from-left{ background: linear-gradient(180deg, rgba(109,227,255,0.24), rgba(109,227,255,0.12)); }
-.project.in-view.from-right{ background: linear-gradient(180deg, rgba(198,160,255,0.24), rgba(198,160,255,0.12)); }
+.project.in-view.from-left{ background: linear-gradient(180deg, rgba(12,64,140,0.34), rgba(12,64,140,0.22)); }
+.project.in-view.from-right{ background: linear-gradient(180deg, rgba(110,40,160,0.34), rgba(110,40,160,0.22)); }
 
 @media (prefers-reduced-motion: reduce), (max-width:700px){
   /* On small screens / reduced motion keep a subtle neutral background for legibility */
   .project, .project.from-left, .project.from-right, .project.in-view.from-left, .project.in-view.from-right{ background:none; background-color:rgba(255,255,255,0.03) }
 }
 
-.project-row{display:flex;gap:18px;align-items:flex-start;position:relative;overflow:visible;padding:12px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.45)}
+.project-row{display:flex;gap:8px;align-items:center;position:relative;overflow:visible;padding:6px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.38);width:80%;max-width:1100px}
 
 /* Inner panel uses the same alternating tint as the outer project to match 'alternate color' */
-.project.from-left .project-row{ background: linear-gradient(180deg, rgba(109,227,255,0.18), rgba(109,227,255,0.12)); }
-.project.from-right .project-row{ background: linear-gradient(180deg, rgba(198,160,255,0.18), rgba(198,160,255,0.12)); }
+.project.from-left .project-row{ background: linear-gradient(180deg, rgba(109,227,255,0.16), rgba(109,227,255,0.10)); }
+.project.from-right .project-row{ background: linear-gradient(180deg, rgba(198,160,255,0.16), rgba(198,160,255,0.10)); }
 .project.from-left .project-row{
   /* flipped alternation: from-left tilts right */
   transform: rotateX(15deg) rotateY(-8deg) rotate(1deg);
@@ -230,12 +287,12 @@ h2{margin-top:0}
   .project.alt-3d-variant .project-row::before,
   .project.alt-3d-variant .project-row::after{ transform:none; transition:none; box-shadow:none }
 }
-.project-thumb{width:320px;height:200px;object-fit:cover;border-radius:10px;flex:0 0 320px;background:#111;border:1px solid rgba(255,255,255,0.03)}
+.project-thumb{width:160px;height:150px;object-fit:cover;border-radius:8px;flex:0 0 160px;background:#111;border:1px solid rgba(255,255,255,0.03)}
 .project-info{flex:1}
 
 /* one project per row for a more impactful layout */
 .projects-grid{display:block;overflow:visible}
-.project{width:100%;display:block;margin-bottom:24px;overflow:visible}
+.project{width:100%;display:flex;align-items:center;justify-content:center;margin-bottom:24px;overflow:visible;min-height:260px;position:relative}
 
 /* Slide-in animation: projects start slightly offset and transparent, then slide into place
    from left or right when they enter the viewport. We add .in-view and .from-left/.from-right
@@ -247,7 +304,19 @@ h2{margin-top:0}
 }
 .project.from-right{ transform: translateX(36px) scale(0.995); }
 .project.in-view{ transform: translateX(0) scale(1); opacity:1; box-shadow:0 18px 40px rgba(0,0,0,0.55); }
-.project.in-view::after{ content:'';display:block;height:6px;width:60%;margin:10px auto 0;border-radius:50%;background:linear-gradient(90deg, rgba(0,0,0,0.35), rgba(0,0,0,0.06));opacity:0.6 }
+.project.in-view::after{
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 12px;
+  height: 6px;
+  width: 60%;
+  border-radius: 50%;
+  background: linear-gradient(90deg, rgba(0,0,0,0.35), rgba(0,0,0,0.06));
+  opacity: 0.6;
+  pointer-events: none;
+}
 .small{color:var(--muted);font-size:0.9rem}
 
 /* Technical skills badges */
@@ -282,6 +351,9 @@ a, .btn { color: #001017 }
 .project .title-accent-4 h3{background:linear-gradient(90deg,#ffd36b,#ff7ac6);-webkit-background-clip:text;background-clip:text;color:transparent}
 .project .title-accent-5 h3{background:linear-gradient(90deg,#9ae6ff,#c8a0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
 
+/* compact project row tweaks: slightly smaller titles for denser rows */
+.project h3{font-size:1.05rem;margin:0 0 6px;line-height:1.15}
+
 .footer{margin-top:40px;padding:20px 0;color:var(--muted);z-index:4}
 .footer .footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:8px}
 .footer .links{display:flex;gap:12px;align-items:center}
@@ -293,6 +365,17 @@ a, .btn { color: #001017 }
   .hero{flex-direction:column;align-items:flex-start}
   .orbit-scene{width:180px;height:180px}
   .hero h1{font-size:2.2rem}
+  /* slightly reduce button sizes on narrow screens to save space */
+  .btn{padding:10px 12px;font-size:0.95rem}
+  .btn.resume{padding:10px 14px}
+}
+
+/* Responsive: on narrower screens allow project rows to be full-width and left-aligned */
+@media (max-width:900px){
+  .project{justify-content:flex-start}
+  .card + .card { margin-top: 28px }
+  /* slightly reduced skills gap on narrow screens */
+  h3 + .skills, .skills{margin-top:18px}
 }
 
 /* shooting star styles (for small CSS sparkles if JS disabled) */
