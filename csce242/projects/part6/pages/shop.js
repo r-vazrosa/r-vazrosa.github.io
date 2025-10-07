@@ -1,7 +1,7 @@
 const shopList = document.getElementById("shop");
 
 const getData = async() => {
-    const url = "r-vazrosa.github.io/csce242/json/shop.json";
+    const url = "https://r-vazrosa.github.io/csce242/json/shop.json";
 
     try {
         const response = await fetch(url);
