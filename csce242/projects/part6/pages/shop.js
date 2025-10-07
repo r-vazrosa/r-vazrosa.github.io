@@ -26,6 +26,7 @@ const getData = async() => {
                 <img src="../images/865.ico">
             </div>
         `;
+        shopList.appendChild(shopItem);
     } catch (e) {
         console.error("Error fetching data:", error);
     }
