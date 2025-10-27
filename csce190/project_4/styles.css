@@ -52,3 +52,12 @@ h2 {
 #affinity img {
     width: 70%;
 }
+
+a {
+text-decoration: none;
+color: purple;
+}
+.project p, h3 {
+margin: 15px;
+}
+
