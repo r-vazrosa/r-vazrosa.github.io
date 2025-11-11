@@ -58,6 +58,11 @@ Body {
     text-wrap: wrap;
 }
 
+.section_description a {
+    color: white;
+    display: block;
+}
+
 /* Typography */
 
 h1 {
